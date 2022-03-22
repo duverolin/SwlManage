@@ -31,31 +31,8 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.1</version>
             <!--移除重复依赖-->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mybatis</groupId>
-                    <artifactId>mybatis</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.jsqlparser</groupId>
-                    <artifactId>jsqlparser</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!--引入mybatis-plus的增强工具 -->
-        <dependency>
-            <groupId>in.hocg.boot</groupId>
-            <artifactId>mybatis-plus-spring-boot-starter</artifactId>
-            <version>1.0.31</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -67,32 +44,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.6.4</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!--引入Druid数据源-->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.8</version>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
         </dependency>
         <!-- 依赖 mysql connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
         </dependency>
         <!--日志插件-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>2.6.4</version>
-        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
