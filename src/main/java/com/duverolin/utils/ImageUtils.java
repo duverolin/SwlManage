@@ -22,12 +22,12 @@ public class ImageUtils {
             String fileName = multipartFile.getOriginalFilename();
             Date date = new Date();
             fileName = UUID.randomUUID() +formatDate(date)+fileName.split("\\.")[1];
-//            File file = new File(ImagePath, fileName);
-//            FileOutputStream fileOutputStream = new FileOutputStream(file);
-//            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-//            bufferedOutputStream.write(multipartFile.getBytes());
-//            bufferedOutputStream.flush();
-//            bufferedOutputStream.close();
+            File file = new File(ImagePath, fileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+            bufferedOutputStream.write(multipartFile.getBytes());
+            bufferedOutputStream.flush();
+            bufferedOutputStream.close();
             return WebUtils.responseSuccess(fileName);
         } else {
             return WebUtils.responseError("error");

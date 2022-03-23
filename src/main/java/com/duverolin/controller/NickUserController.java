@@ -50,7 +50,6 @@ public class NickUserController {
 
     @RequestMapping("uploadImage.do")//上传保存Nick用户头像
     public Object uploadImage(@RequestParam("file") MultipartFile multipartFile) throws Exception {
-        //return WebUtils.responseSuccess("success");
         return ImageUtils.saveImage(multipartFile);
     }
 }
