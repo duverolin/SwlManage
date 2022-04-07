@@ -44,4 +44,11 @@ public class NickUserService {
     public int deleteNickUser(NickUser nickUser) {
         return nickUserMapper.deleteNickUser(nickUser);
     }
+
+    /**
+     * 查询是否已存在这个用户
+     */
+    public int queryNickLoginName(String nickLoginName) {
+        return nickUserMapper.queryNickLoginName(nickLoginName);
+    }
 }

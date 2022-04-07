@@ -18,6 +18,7 @@ public class ImageUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("_yyyy_MM_dd_HH_mm_ss.");
         return simpleDateFormat.format(date);
     }
+
     //保存头像
     public static Object saveImage(MultipartFile multipartFile) throws Exception {
         if (!multipartFile.isEmpty()) {
@@ -25,7 +26,7 @@ public class ImageUtils {
             String fileName = multipartFile.getOriginalFilename();
             fileName = UUID.randomUUID() + formatDate(date) + fileName.split("\\.")[1];
             File file = new File(ImagePath, fileName);
-            if (file.exists()){
+            if (file.exists()) {
                 String reFileName = UUID.randomUUID() + formatDate(date) + multipartFile.getOriginalFilename().split("\\.")[1];
                 file = new File(ImagePath, reFileName);
             }
@@ -39,5 +40,4 @@ public class ImageUtils {
             return WebUtils.responseError("error");
         }
     }
-
 }

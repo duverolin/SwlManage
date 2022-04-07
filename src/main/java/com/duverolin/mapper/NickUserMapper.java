@@ -20,9 +20,12 @@ public interface NickUserMapper {
 
     @Update("update NickUser set nickLoginName=#{nickLoginName},nickName=#{nickName},nickPassword=#{nickPassword},nickImg=#{nickImg}," +
             "nickRealName=#{nickRealName},nickTelephone=#{nickTelephone},nickSex=#{nickSex},nickBrithday=#{nickBrithday}," +
-            "nickIntro=#{nickIntro},nickRegisterTime=#{nickRegisterTime},nickScore=#{nickScore},nickStatus=#{nickStatus} where userId =#{userId}")
+            "nickIntro=#{nickIntro},nickRegisterTime=#{nickRegisterTime},nickScore=#{nickScore},nickStatus=#{nickStatus} where nickId =#{nickId}")
     int updateNickUser(NickUser nickUser);
 
-    @Delete("delete * from NickUser where userId=#{userId}")
+    @Delete("delete * from NickUser where nickId=#{nickId}")
     int deleteNickUser(NickUser nickUser);
+
+    @Select("select count(*) from NickUser where nickLoginName = #{nickLoginName}")
+    int queryNickLoginName(String nickLoginName);
 }

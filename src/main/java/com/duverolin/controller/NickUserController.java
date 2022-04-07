@@ -56,6 +56,17 @@ public class NickUserController {
         return ImageUtils.saveImage(multipartFile);
     }
 
+    @RequestMapping("validataLoginName.do")//验证用户名是否已注册
+    public Object validataLoginName(HttpServletRequest request) {
+        String nickLoginName = request.getParameter("nickLoginName");
+        int result = nickUserService.queryNickLoginName(nickLoginName);
+        if (result == 0) {
+            return WebUtils.responseSuccess("success");
+        } else {
+            return WebUtils.responseError("error");
+        }
+    }
+
     @RequestMapping("addNickUser.do")//添加Nick用户
     public Object addNickUser(@RequestBody NickUser nickUser) {
         Date date = new Date();
@@ -69,8 +80,9 @@ public class NickUserController {
             return WebUtils.responseError("error");
         }
     }
+
     @RequestMapping("updateNickUser.do")//修改Nick用户信息
-    public Object updateNickUser(@RequestBody NickUser nickUser){
+    public Object updateNickUser(@RequestBody NickUser nickUser) {
         int result = nickUserService.updateNickUser(nickUser);
         if (result > 0) {
             return WebUtils.responseSuccess("success");
@@ -78,8 +90,9 @@ public class NickUserController {
             return WebUtils.responseError("error");
         }
     }
+
     @RequestMapping("deleteNickUser.do")
-    public Object deleteNickUser(@RequestBody NickUser nickUser){
+    public Object deleteNickUser(@RequestBody NickUser nickUser) {
         int result = nickUserService.deleteNickUser(nickUser);
         if (result > 0) {
             return WebUtils.responseSuccess("success");
