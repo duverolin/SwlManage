@@ -19,7 +19,7 @@ public class ImageUtils {
         return simpleDateFormat.format(date);
     }
 
-    //保存头像
+    //保存头像到服务器文件夹中
     public static Object saveImage(MultipartFile multipartFile) throws Exception {
         if (!multipartFile.isEmpty()) {
             Date date = new Date();
@@ -37,6 +37,21 @@ public class ImageUtils {
             bufferedOutputStream.close();
             return WebUtils.responseSuccess(fileName);
         } else {
+            return WebUtils.responseError("error");
+        }
+    }
+
+    //删除服务器中图片
+    public static Object deleteServerImageFile(String imageUrl) {
+        if (imageUrl != null && !imageUrl.equals("")) {
+            File file = new File(ImagePath, imageUrl);
+            if (file.exists()) {
+                boolean result = file.delete();
+                return WebUtils.responseSuccess(result);
+            } else {
+                return WebUtils.responseError("error");
+            }
+        }else {
             return WebUtils.responseError("error");
         }
     }

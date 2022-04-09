@@ -3,6 +3,7 @@ package com.duverolin.services;
 import com.duverolin.entity.NickUser;
 import com.duverolin.mapper.NickUserMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +21,7 @@ public class NickUserService {
     /**
      * 查询所有nickUser信息
      */
+    @Transactional(rollbackFor = Exception.class)
     public List<NickUser> selectAllnickUsers() {
         return nickUserMapper.selectAllnickUsers();
     }
@@ -27,6 +29,7 @@ public class NickUserService {
     /**
      * 添加Nick用户
      */
+    @Transactional(rollbackFor = Exception.class)
     public int addNickUser(NickUser nickUser) {
         return nickUserMapper.addNickUser(nickUser);
     }
@@ -34,6 +37,7 @@ public class NickUserService {
     /**
      * 根据Id标识修改用户信息
      */
+    @Transactional(rollbackFor = Exception.class)
     public int updateNickUser(NickUser nickUser) {
         return nickUserMapper.updateNickUser(nickUser);
     }
@@ -41,14 +45,18 @@ public class NickUserService {
     /**
      * 根据Id删除这条数据
      */
-    public int deleteNickUser(NickUser nickUser) {
-        return nickUserMapper.deleteNickUser(nickUser);
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteNickUserById(Integer nickId) {
+        return nickUserMapper.deleteNickUserById(nickId);
     }
 
     /**
      * 查询是否已存在这个用户
      */
+    @Transactional(rollbackFor = Exception.class)
     public int queryNickLoginName(String nickLoginName) {
         return nickUserMapper.queryNickLoginName(nickLoginName);
     }
+
+
 }

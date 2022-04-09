@@ -7,10 +7,7 @@ import com.duverolin.utils.WebUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +52,11 @@ public class NickUserController {
     public Object uploadImage(@RequestParam("file") MultipartFile multipartFile) throws Exception {
         return ImageUtils.saveImage(multipartFile);
     }
+    @GetMapping("deleteServerImageFile.do")
+    public Object deleteServerImageFile(@RequestParam(value = "ImageUrl",required = false) String ImageUrl){
+        System.out.println(ImageUrl);
+        return ImageUtils.deleteServerImageFile(ImageUrl);
+    }
 
     @RequestMapping("validataLoginName.do")//验证用户名是否已注册
     public Object validataLoginName(HttpServletRequest request) {
@@ -91,9 +93,10 @@ public class NickUserController {
         }
     }
 
-    @RequestMapping("deleteNickUser.do")
-    public Object deleteNickUser(@RequestBody NickUser nickUser) {
-        int result = nickUserService.deleteNickUser(nickUser);
+    @RequestMapping("deleteNickUserById.do")
+    public Object deleteNickUserById(HttpServletRequest request) {
+        int nickId = Integer.parseInt(request.getParameter("nickId"));
+        int result = nickUserService.deleteNickUserById(nickId);
         if (result > 0) {
             return WebUtils.responseSuccess("success");
         } else {
