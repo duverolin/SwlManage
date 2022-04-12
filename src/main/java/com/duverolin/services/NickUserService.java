@@ -58,5 +58,10 @@ public class NickUserService {
         return nickUserMapper.queryNickLoginName(nickLoginName);
     }
 
-
+    /**
+     * 根据输入值查询用户
+     */
+    public List<NickUser> selectNickUsersByName(String nickName) {
+        return nickUserMapper.selectNickUsersByName(nickName);
+    }
 }

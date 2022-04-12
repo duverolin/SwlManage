@@ -8,15 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/")
 public class AdminUserController {
 
 
-    final Map<String, Object> map = new HashMap<>();
     private AdminUserService adminUserService;
 
     @Autowired
@@ -30,13 +27,11 @@ public class AdminUserController {
         AdminUser adminUser = adminUserService.adminLogin(user);
         if (adminUser != null) {
             if (adminUser.getAdminUserStatus() == 1) {
-                return WebUtils.responseSuccess(adminUser);
+                return WebUtils.responseSuccess("success");
             } else if (adminUser.getAdminUserStatus() == 0) {
-                map.put("code", "0");
-                return map;
+                return WebUtils.responseSuccess();
             } else {
-                map.put("code", "-1");
-                return map;
+                return WebUtils.responseError("error");
             }
         } else {
             return WebUtils.responseError("错误");

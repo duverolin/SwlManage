@@ -27,5 +27,6 @@ public interface NickUserMapper {
     @Select("select count(*) from NickUser where nickLoginName = #{nickLoginName}")
     int queryNickLoginName(String nickLoginName);
 
-
+    @Select("select * from NickUser where locate(#{nickName},nickName) or locate(#{nickName},nickRealName)")
+    List<NickUser> selectNickUsersByName(String nickName);
 }

@@ -5,8 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class ImageUtils {
@@ -14,45 +14,44 @@ public class ImageUtils {
     static final String ImagePath = "C:\\Users\\duverolin\\Documents\\HBuilderProjects\\SwlManage\\public\\assets\\upload\\";
 
 
-    public static String formatDate(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("_yyyy_MM_dd_HH_mm_ss.");
-        return simpleDateFormat.format(date);
+    public static String formatDate() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("_yyyy_MM_dd_HH_mm_ss.");
+        return dateTimeFormatter.format(dateTime);
     }
 
     //保存头像到服务器文件夹中
     public static Object saveImage(MultipartFile multipartFile) throws Exception {
         if (!multipartFile.isEmpty()) {
-            Date date = new Date();
-            String fileName = multipartFile.getOriginalFilename();
-            fileName = UUID.randomUUID() + formatDate(date) + fileName.split("\\.")[1];
-            File file = new File(ImagePath, fileName);
+            String beforeFileName = multipartFile.getOriginalFilename();
+            String afterFileName = UUID.randomUUID() + formatDate() + beforeFileName.split("\\.")[1];
+            File file = new File(ImagePath, afterFileName);
             if (file.exists()) {
-                String reFileName = UUID.randomUUID() + formatDate(date) + multipartFile.getOriginalFilename().split("\\.")[1];
-                file = new File(ImagePath, reFileName);
+                afterFileName = UUID.randomUUID() + formatDate() + beforeFileName.split("\\.")[1];
+                file = new File(ImagePath, afterFileName);
             }
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
             bufferedOutputStream.write(multipartFile.getBytes());
             bufferedOutputStream.flush();
             bufferedOutputStream.close();
-            return WebUtils.responseSuccess(fileName);
+            return WebUtils.responseSuccess(afterFileName);
         } else {
             return WebUtils.responseError("error");
         }
     }
 
     //删除服务器中图片
-    public static Object deleteServerImageFile(String imageUrl) {
-        if (imageUrl != null && !imageUrl.equals("")) {
-            File file = new File(ImagePath, imageUrl);
+    public static boolean deleteServerImageFile(String nickImg) {
+        if (nickImg != null && !nickImg.equals("")) {
+            File file = new File(ImagePath, nickImg);
+            boolean isTrue = false;
             if (file.exists()) {
-                boolean result = file.delete();
-                return WebUtils.responseSuccess(result);
-            } else {
-                return WebUtils.responseError("error");
+               isTrue = file.delete();
             }
+            return isTrue;
         }else {
-            return WebUtils.responseError("error");
+            return true;
         }
     }
 }
